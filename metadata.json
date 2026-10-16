@@ -1,0 +1,6 @@
+{
+  "name": "My AI",
+  "description": "Mobile-first AI chatbot inspired by ChatGPT featuring warm editorial theme, offline Room conversation history, and bilingual English and Bengali support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
