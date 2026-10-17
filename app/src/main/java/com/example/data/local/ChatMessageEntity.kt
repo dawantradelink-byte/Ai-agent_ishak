@@ -22,6 +22,8 @@ data class ChatMessageEntity(
     val id: String,
     val sessionId: String,
     val role: String, // "user" or "assistant"
+    val agentId: String = "mochi",
     val content: String,
-    val timestamp: Long = System.currentTimeMillis()
+    val timestamp: Long = System.currentTimeMillis(),
+    val isRealAi: Boolean = false
 )

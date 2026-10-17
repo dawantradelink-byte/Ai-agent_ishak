@@ -17,11 +17,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
-import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Lightbulb
-import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Psychology
+import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,18 +31,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ui.theme.CoralPrimary
-import com.example.ui.theme.HairlineBorder
-import com.example.ui.theme.SurfaceCard
-import com.example.ui.theme.SurfaceCreamStrong
-import com.example.ui.theme.TextBody
-import com.example.ui.theme.TextInk
-import com.example.ui.theme.TextMuted
+import com.example.data.model.Agent
+import com.example.ui.theme.BabyBlueAccent
+import com.example.ui.theme.DeepNavyBorder
+import com.example.ui.theme.DeepNavyElevated
+import com.example.ui.theme.DeepNavySurface
+import com.example.ui.theme.TextLightMuted
+import com.example.ui.theme.TextWhite
 
 data class StarterPrompt(
     val title: String,
@@ -54,35 +52,82 @@ data class StarterPrompt(
 
 @Composable
 fun StarterPromptsView(
+    agent: Agent,
     onSelectPrompt: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val starters = listOf(
-        StarterPrompt(
-            title = "অনুপ্রেরণামূলক গল্প",
-            subtitle = "বাংলায় একটি ছোট অনুপ্রেরণামূলক গল্প লিখুন",
-            icon = Icons.AutoMirrored.Filled.MenuBook,
-            prompt = "বাংলায় একটি ছোট কিন্তু গভীর অর্থপূর্ণ অনুপ্রেরণামূলক গল্প বলুন।"
-        ),
-        StarterPrompt(
-            title = "Explain Complex Ideas",
-            subtitle = "Simple breakdown of quantum computing",
-            icon = Icons.Default.Psychology,
-            prompt = "Explain quantum computing in simple, intuitive terms that anyone can understand."
-        ),
-        StarterPrompt(
-            title = "Python কোড ও স্ক্রিপ্ট",
-            subtitle = "JSON ডেটা প্রসেসিং পাইথন কোড",
-            icon = Icons.Default.Code,
-            prompt = "Write a clean, well-commented Python script to parse and clean a nested JSON file."
-        ),
-        StarterPrompt(
-            title = "দৈনন্দিন টিপস ও গাইডলাইন",
-            subtitle = "দিনটি সফল ও সুন্দর করার ৫টি পরামর্শ",
-            icon = Icons.Default.Lightbulb,
-            prompt = "আজকের দিনটি সুন্দর, প্রশান্তিময় এবং সফল করার জন্য ৫টি ব্যবহারিক পরামর্শ দিন।"
+    val starters = when (agent.id) {
+        "scout" -> listOf(
+            StarterPrompt(
+                title = "Technical Comparison",
+                subtitle = "Compare Jetpack Compose vs Flutter in 2026",
+                icon = Icons.Default.Psychology,
+                prompt = "Provide a deep comparative analysis between Jetpack Compose and Flutter for mobile development."
+            ),
+            StarterPrompt(
+                title = "গবেষণা ও তথ্য বিশ্লেষণ",
+                subtitle = "কোয়ান্টাম কম্পিউটিং কীভাবে কাজ করে সহজ ভাষায় বলুন",
+                icon = Icons.AutoMirrored.Filled.MenuBook,
+                prompt = "কোয়ান্টাম কম্পিউটিং সাধারণ কম্পিউটারের চেয়ে কীভাবে আলাদা এবং এটি কীভাবে কাজ করে সহজ ভাষায় বাংলায় ব্যাখ্যা করুন।"
+            )
         )
-    )
+        "forge" -> listOf(
+            StarterPrompt(
+                title = "Kotlin & Room Implementation",
+                subtitle = "Write a production-grade Room DAO & Repository",
+                icon = Icons.Default.Code,
+                prompt = "Write a complete, clean Kotlin Android Room Database DAO and Repository with Flow."
+            ),
+            StarterPrompt(
+                title = "Python ডেটা অ্যালগরিদম",
+                subtitle = "JSON ডেটা পার্স ও ক্লিন করার স্ক্রিপ্ট লিখুন",
+                icon = Icons.Default.Code,
+                prompt = "পাইথনে একটি নেস্টেড JSON ফাইল পার্স এবং ডেটা ভ্যালিডেট করার সম্পূর্ণ কোড লিখুন।"
+            )
+        )
+        "pixel" -> listOf(
+            StarterPrompt(
+                title = "Dark Navy UI Design Palette",
+                subtitle = "Suggest a modern palette with baby blue & lime accents",
+                icon = Icons.Default.Lightbulb,
+                prompt = "Provide a refined Material 3 color system with deep navy, cream, baby blue, and lime accents."
+            ),
+            StarterPrompt(
+                title = "আকর্ষণীয় প্রোডাক্ট কপিরাইটিং",
+                subtitle = "একটি নতুন এআই অ্যাপের জন্য সুন্দর ট্যাগলাইন ও পরিচিতি",
+                icon = Icons.Default.Lightbulb,
+                prompt = "Open AI Agent অ্যাপের জন্য বাংলায় ৩টি মনোমুগ্ধকর ট্যাগলাইন এবং সংক্ষিপ্ত পরিচিতি লিখুন।"
+            )
+        )
+        "guardian" -> listOf(
+            StarterPrompt(
+                title = "Security & Privacy Audit",
+                subtitle = "Checklist for Android API key protection",
+                icon = Icons.Default.Shield,
+                prompt = "Provide an exhaustive security audit checklist for protecting API keys and SQLite storage in Android."
+            ),
+            StarterPrompt(
+                title = "বাগ ও এজ-কেস টেস্ট",
+                subtitle = "নেটওয়ার্ক ফেইলিওর ও এজ-কেস হ্যান্ডলিং নির্দেশিকা",
+                icon = Icons.Default.Shield,
+                prompt = "মোবাইল অ্যাপে নেটওয়ার্ক টাইমআউট এবং অফলাইন স্টেট হ্যান্ডলিংয়ের জন্য গুরুত্বপূর্ণ টেস্ট কেসসমূহ কী কী?"
+            )
+        )
+        else -> listOf( // Mochi
+            StarterPrompt(
+                title = "3-Phase Project Roadmap",
+                subtitle = "Decompose building a mobile AI assistant",
+                icon = Icons.Default.Psychology,
+                prompt = "Act as Mochi the Manager: Break down developing a multi-agent AI assistant into a 3-phase structured roadmap."
+            ),
+            StarterPrompt(
+                title = "টিম টাস্ক কোঅর্ডিনেশন",
+                subtitle = "৫টি এজেন্টের মধ্যে দায়িত্ব বণ্টনের কর্মপরিকল্পনা",
+                icon = Icons.Default.Lightbulb,
+                prompt = "Mochi AI টিম (Scout, Forge, Pixel, Guardian) এর মধ্যে একটি নতুন প্রজেক্টের কাজ কীভাবে বণ্টন করবেন তার একটি পরিকল্পনা দিন।"
+            )
+        )
+    }
 
     Column(
         modifier = modifier
@@ -91,45 +136,48 @@ fun StarterPromptsView(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // App Emblem
-        Box(
-            modifier = Modifier
-                .size(60.dp)
-                .clip(CircleShape)
-                .background(CoralPrimary),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = Icons.Default.AutoAwesome,
-                contentDescription = "My AI Mark",
-                tint = Color.White,
-                modifier = Modifier.size(32.dp)
-            )
-        }
+        // Agent Emblem Portrait
+        AgentAvatar(
+            agentId = agent.id,
+            size = 80.dp,
+            showPulse = true
+        )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(14.dp))
 
         Text(
-            text = "My AI",
+            text = agent.name,
             style = MaterialTheme.typography.displayMedium,
-            color = TextInk
+            color = MaterialTheme.colorScheme.onSurface,
+            fontWeight = FontWeight.Bold
         )
 
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         Text(
-            text = "Where would you like to begin today?\nআজ আপনি কী বিষয়ে জানতে চান?",
+            text = agent.title,
             style = MaterialTheme.typography.bodyMedium,
-            color = TextMuted,
-            textAlign = TextAlign.Center,
-            lineHeight = 22.sp
+            color = agent.color,
+            textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(28.dp))
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = agent.description,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            lineHeight = 18.sp,
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
 
         starters.forEachIndexed { index, item ->
             StarterCard(
                 prompt = item,
+                accentColor = agent.color,
                 onClick = { onSelectPrompt(item.prompt) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -143,14 +191,15 @@ fun StarterPromptsView(
 @Composable
 fun StarterCard(
     prompt: StarterPrompt,
+    accentColor: Color,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(SurfaceCard)
-            .border(1.dp, HairlineBorder, RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(12.dp))
             .clickable(onClick = onClick)
             .padding(14.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -159,13 +208,13 @@ fun StarterCard(
             modifier = Modifier
                 .size(36.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(SurfaceCreamStrong),
+                .background(accentColor.copy(alpha = 0.2f)),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = prompt.icon,
                 contentDescription = null,
-                tint = CoralPrimary,
+                tint = accentColor,
                 modifier = Modifier.size(20.dp)
             )
         }
@@ -176,13 +225,14 @@ fun StarterCard(
             Text(
                 text = prompt.title,
                 style = MaterialTheme.typography.titleSmall,
-                color = TextInk
+                color = MaterialTheme.colorScheme.onSurface,
+                fontWeight = FontWeight.SemiBold
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = prompt.subtitle,
                 style = MaterialTheme.typography.bodySmall,
-                color = TextBody,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1
             )
         }

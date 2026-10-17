@@ -1,0 +1,103 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Mochi 🐻 Vector Avatar (Crisp High-DPI) -->
+    <!-- Circular Backdrop -->
+    <path
+        android:fillColor="#BFE3FF"
+        android:pathData="M50,2 A48,48 0 1,0 50,98 A48,48 0 1,0 50,2 Z" />
+    <path
+        android:strokeColor="#6D9EC9"
+        android:strokeWidth="1.5"
+        android:pathData="M50,3 A47,47 0 1,0 50,97 A47,47 0 1,0 50,3 Z" />
+    <!-- Highlights -->
+    <path
+        android:fillColor="#29FFFFFF"
+        android:pathData="M18,15 A7,7 0 1,0 18,29 A7,7 0 1,0 18,15 Z" />
+    <path
+        android:fillColor="#1AFFFFFF"
+        android:pathData="M79,15 A3,3 0 1,0 79,21 A3,3 0 1,0 79,15 Z" />
+
+    <!-- Left Outer Ear -->
+    <path
+        android:fillColor="#FFFFFCF8"
+        android:pathData="M18,35 C9,15 16,5 28,13 C35,17 35,27 32,35 Z" />
+    <!-- Right Outer Ear -->
+    <path
+        android:fillColor="#FFFFFCF8"
+        android:pathData="M68,34 C65,20 71,7 83,12 C95,17 92,29 83,37 Z" />
+    <!-- Left Inner Ear (Pink) -->
+    <path
+        android:fillColor="#F4A5B4"
+        android:pathData="M20,29 C17,19 21,15 27,20 C30,23 29,28 27,31 Z" />
+    <!-- Right Inner Ear (Pink) -->
+    <path
+        android:fillColor="#F4A5B4"
+        android:pathData="M73,29 C73,20 79,16 84,21 C86,25 82,30 79,32 Z" />
+
+    <!-- Fluffy Head -->
+    <path
+        android:fillColor="#FFFFFCF8"
+        android:pathData="M14,48 C10,38 20,31 29,34 C35,26 45,30 49,34 C59,27 69,31 73,37 C86,33 92,43 87,52 C94,65 85,83 72,87 C58,95 35,93 23,86 C8,78 8,62 14,48 Z" />
+
+    <!-- Sapphire Eyes -->
+    <path
+        android:fillColor="#159DE8"
+        android:pathData="M35,44 A12,12 0 1,0 35,68 A12,12 0 1,0 35,44 Z" />
+    <path
+        android:fillColor="#159DE8"
+        android:pathData="M66,44 A12,12 0 1,0 66,68 A12,12 0 1,0 66,44 Z" />
+    <!-- Deep Ink Pupils -->
+    <path
+        android:fillColor="#142B3D"
+        android:pathData="M35,48 A9,9 0 1,0 35,66 A9,9 0 1,0 35,48 Z" />
+    <path
+        android:fillColor="#142B3D"
+        android:pathData="M66,48 A9,9 0 1,0 66,66 A9,9 0 1,0 66,48 Z" />
+    <!-- Sparkle Highlights -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M31,48.8 A3.2,3.2 0 1,0 31,55.2 A3.2,3.2 0 1,0 31,48.8 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M62,48.8 A3.2,3.2 0 1,0 62,55.2 A3.2,3.2 0 1,0 62,48.8 Z" />
+    <path
+        android:fillColor="#CCFFFFFF"
+        android:pathData="M39,59.6 A1.4,1.4 0 1,0 39,62.4 A1.4,1.4 0 1,0 39,59.6 Z" />
+    <path
+        android:fillColor="#CCFFFFFF"
+        android:pathData="M70,59.6 A1.4,1.4 0 1,0 70,62.4 A1.4,1.4 0 1,0 70,59.6 Z" />
+
+    <!-- Rosy Cheeks -->
+    <path
+        android:fillColor="#B8F4A5B4"
+        android:pathData="M20,65 A6,3 0 1,0 32,65 A6,3 0 1,0 20,65 Z" />
+    <path
+        android:fillColor="#B8F4A5B4"
+        android:pathData="M68,65 A6,3 0 1,0 80,65 A6,3 0 1,0 68,65 Z" />
+
+    <!-- Nose -->
+    <path
+        android:fillColor="#6B443E"
+        android:pathData="M44,66 Q50,61 56,66 Q54,72 50,72 Q46,72 44,66 Z" />
+    <!-- Smile -->
+    <path
+        android:strokeColor="#6B443E"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M50,72 Q45,78 40,73 M50,72 Q55,78 60,73" />
+
+    <!-- Manager Blue Collar Ribbon -->
+    <path
+        android:fillColor="#345A88"
+        android:pathData="M35,13 L65,13 A4,4 0 0,1 69,17 L69,18 A4,4 0 0,1 65,22 L35,22 A4,4 0 0,1 31,18 L31,17 A4,4 0 0,1 35,13 Z" />
+    <!-- Star Badge -->
+    <path
+        android:fillColor="#FFD45C"
+        android:pathData="M50,7 A6,6 0 1,0 50,19 A6,6 0 1,0 50,7 Z" />
+    <path
+        android:fillColor="#8E5C14"
+        android:pathData="M50,8.8 L51.3,11.5 L54.2,11.9 L52.1,14 L52.6,16.9 L50,15.5 L47.4,16.9 L47.9,14 L45.8,11.9 L48.7,11.5 Z" />
+</vector>

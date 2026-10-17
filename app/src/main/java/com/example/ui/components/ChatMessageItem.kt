@@ -26,10 +26,11 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -46,14 +47,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.local.ChatMessageEntity
-import com.example.ui.theme.CanvasCream
-import com.example.ui.theme.CoralPrimary
-import com.example.ui.theme.HairlineBorder
-import com.example.ui.theme.SurfaceCard
-import com.example.ui.theme.SurfaceCreamStrong
-import com.example.ui.theme.TextBody
-import com.example.ui.theme.TextInk
-import com.example.ui.theme.TextMuted
+import com.example.data.model.AgentTeam
+import com.example.ui.theme.BabyBlueAccent
+import com.example.ui.theme.CreamBorder
+import com.example.ui.theme.CreamSurface
+import com.example.ui.theme.DeepNavyBorder
+import com.example.ui.theme.DeepNavyElevated
+import com.example.ui.theme.LemonLimeAccent
+import com.example.ui.theme.StatusCompleted
+import com.example.ui.theme.StatusQueued
+import com.example.ui.theme.TextDarkInk
+import com.example.ui.theme.TextLightMuted
+import com.example.ui.theme.TextWhite
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -63,9 +68,14 @@ fun ChatMessageItem(
     message: ChatMessageEntity,
     isLastAssistantMessage: Boolean,
     onRetry: () -> Unit,
+    onSpeak: () -> Unit = {},
+    onStopSpeak: () -> Unit = {},
+    isSpeaking: Boolean = false,
+    reduceMotion: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     val isUser = message.role == "user"
+    val agent = AgentTeam.getById(message.agentId)
     val context = LocalContext.current
     val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
     val formattedTime = timeFormat.format(Date(message.timestamp))
@@ -78,21 +88,13 @@ fun ChatMessageItem(
         verticalAlignment = Alignment.Top
     ) {
         if (!isUser) {
-            // Assistant Avatar
-            Box(
-                modifier = Modifier
-                    .size(34.dp)
-                    .clip(CircleShape)
-                    .background(CoralPrimary),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AutoAwesome,
-                    contentDescription = "My AI",
-                    tint = Color.White,
-                    modifier = Modifier.size(18.dp)
-                )
-            }
+            // Agent Avatar
+            AgentAvatar(
+                agentId = message.agentId,
+                size = 36.dp,
+                showPulse = false,
+                modifier = Modifier.padding(top = 2.dp)
+            )
             Spacer(modifier = Modifier.width(10.dp))
         }
 
@@ -100,7 +102,53 @@ fun ChatMessageItem(
             modifier = Modifier.widthIn(max = 320.dp),
             horizontalAlignment = if (isUser) Alignment.End else Alignment.Start
         ) {
-            // Message Card
+            // Agent Name & Status Tag (if assistant)
+            if (!isUser) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(bottom = 4.dp, start = 4.dp)
+                ) {
+                    Text(
+                        text = agent.name,
+                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
+                        color = agent.color
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(4.dp))
+                            .background(if (message.isRealAi) StatusCompleted.copy(alpha = 0.2f) else StatusQueued.copy(alpha = 0.2f))
+                            .padding(horizontal = 5.dp, vertical = 2.dp)
+                    ) {
+                        Text(
+                            text = if (message.isRealAi) "GEMINI AI" else "DEMO MODE",
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontSize = 9.sp,
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = if (message.isRealAi) StatusCompleted else StatusQueued
+                        )
+                    }
+                }
+            }
+
+            // Message Bubble Card
+            val bubbleBg = if (isUser) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.surfaceVariant
+            }
+            val bubbleBorder = if (isUser) {
+                MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
+            } else {
+                MaterialTheme.colorScheme.outline
+            }
+            val textColor = if (isUser) {
+                MaterialTheme.colorScheme.onPrimary
+            } else {
+                MaterialTheme.colorScheme.onSurface
+            }
+
             Box(
                 modifier = Modifier
                     .clip(
@@ -120,10 +168,10 @@ fun ChatMessageItem(
                             )
                         }
                     )
-                    .background(if (isUser) SurfaceCreamStrong else CanvasCream)
+                    .background(bubbleBg)
                     .border(
                         width = 1.dp,
-                        color = if (isUser) HairlineBorder else HairlineBorder,
+                        color = bubbleBorder,
                         shape = if (isUser) {
                             RoundedCornerShape(
                                 topStart = 16.dp,
@@ -146,17 +194,17 @@ fun ChatMessageItem(
                     Text(
                         text = message.content,
                         style = MaterialTheme.typography.bodyLarge,
-                        color = TextInk
+                        color = textColor
                     )
                 } else {
                     MarkdownContent(
                         content = message.content,
-                        textColor = TextBody
+                        textColor = textColor
                     )
                 }
             }
 
-            // Timestamp and Actions
+            // Action row below message
             Row(
                 modifier = Modifier.padding(top = 4.dp, start = 2.dp, end = 2.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -165,7 +213,7 @@ fun ChatMessageItem(
                 Text(
                     text = formattedTime,
                     style = MaterialTheme.typography.bodySmall,
-                    color = TextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                     fontSize = 11.sp
                 )
 
@@ -174,7 +222,7 @@ fun ChatMessageItem(
                         onClick = {
                             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                             clipboard.setPrimaryClip(ClipData.newPlainText("response", message.content))
-                            Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Copied response to clipboard", Toast.LENGTH_SHORT).show()
                         },
                         modifier = Modifier
                             .size(24.dp)
@@ -183,8 +231,24 @@ fun ChatMessageItem(
                         Icon(
                             imageVector = Icons.Default.ContentCopy,
                             contentDescription = "Copy message",
-                            tint = TextMuted,
+                            tint = TextLightMuted,
                             modifier = Modifier.size(13.dp)
+                        )
+                    }
+
+                    IconButton(
+                        onClick = {
+                            if (isSpeaking) onStopSpeak() else onSpeak()
+                        },
+                        modifier = Modifier
+                            .size(24.dp)
+                            .testTag("speak_button_${message.id}")
+                    ) {
+                        Icon(
+                            imageVector = if (isSpeaking) Icons.Default.Stop else Icons.AutoMirrored.Filled.VolumeUp,
+                            contentDescription = if (isSpeaking) "Stop voice" else "Listen to agent",
+                            tint = if (isSpeaking) LemonLimeAccent else TextLightMuted,
+                            modifier = Modifier.size(14.dp)
                         )
                     }
 
@@ -198,7 +262,7 @@ fun ChatMessageItem(
                             Icon(
                                 imageVector = Icons.Default.Refresh,
                                 contentDescription = "Retry message",
-                                tint = CoralPrimary,
+                                tint = agent.color,
                                 modifier = Modifier.size(14.dp)
                             )
                         }
@@ -212,17 +276,17 @@ fun ChatMessageItem(
             // User Avatar
             Box(
                 modifier = Modifier
-                    .size(34.dp)
+                    .size(36.dp)
                     .clip(CircleShape)
-                    .background(SurfaceCard)
-                    .border(1.dp, HairlineBorder, CircleShape),
+                    .background(BabyBlueAccent.copy(alpha = 0.2f))
+                    .border(1.dp, BabyBlueAccent, CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = Icons.Default.Person,
                     contentDescription = "User",
-                    tint = TextMuted,
-                    modifier = Modifier.size(18.dp)
+                    tint = BabyBlueAccent,
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }
@@ -230,12 +294,16 @@ fun ChatMessageItem(
 }
 
 @Composable
-fun LoadingIndicatorBubble(modifier: Modifier = Modifier) {
+fun LoadingIndicatorBubble(
+    agentColor: Color,
+    reduceMotion: Boolean = false,
+    modifier: Modifier = Modifier
+) {
     val transition = rememberInfiniteTransition(label = "dots")
 
     val dot1Offset by transition.animateFloat(
         initialValue = 0f,
-        targetValue = -6f,
+        targetValue = if (reduceMotion) 0f else -6f,
         animationSpec = infiniteRepeatable(
             animation = tween(400, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
@@ -245,7 +313,7 @@ fun LoadingIndicatorBubble(modifier: Modifier = Modifier) {
 
     val dot2Offset by transition.animateFloat(
         initialValue = 0f,
-        targetValue = -6f,
+        targetValue = if (reduceMotion) 0f else -6f,
         animationSpec = infiniteRepeatable(
             animation = tween(400, delayMillis = 150, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
@@ -255,7 +323,7 @@ fun LoadingIndicatorBubble(modifier: Modifier = Modifier) {
 
     val dot3Offset by transition.animateFloat(
         initialValue = 0f,
-        targetValue = -6f,
+        targetValue = if (reduceMotion) 0f else -6f,
         animationSpec = infiniteRepeatable(
             animation = tween(400, delayMillis = 300, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
@@ -272,16 +340,16 @@ fun LoadingIndicatorBubble(modifier: Modifier = Modifier) {
     ) {
         Box(
             modifier = Modifier
-                .size(34.dp)
+                .size(36.dp)
                 .clip(CircleShape)
-                .background(CoralPrimary),
+                .background(agentColor),
             contentAlignment = Alignment.Center
         ) {
-            Icon(
-                imageVector = Icons.Default.AutoAwesome,
-                contentDescription = "My AI",
-                tint = Color.White,
-                modifier = Modifier.size(18.dp)
+            Box(
+                modifier = Modifier
+                    .size(10.dp)
+                    .clip(CircleShape)
+                    .background(Color.White)
             )
         }
 
@@ -290,8 +358,8 @@ fun LoadingIndicatorBubble(modifier: Modifier = Modifier) {
         Row(
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
-                .background(CanvasCream)
-                .border(1.dp, HairlineBorder, RoundedCornerShape(16.dp))
+                .background(DeepNavyElevated)
+                .border(1.dp, DeepNavyBorder, RoundedCornerShape(16.dp))
                 .padding(horizontal = 16.dp, vertical = 14.dp),
             horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -301,21 +369,21 @@ fun LoadingIndicatorBubble(modifier: Modifier = Modifier) {
                     .offset(y = dot1Offset.dp)
                     .size(7.dp)
                     .clip(CircleShape)
-                    .background(CoralPrimary)
+                    .background(agentColor)
             )
             Box(
                 modifier = Modifier
                     .offset(y = dot2Offset.dp)
                     .size(7.dp)
                     .clip(CircleShape)
-                    .background(CoralPrimary.copy(alpha = 0.8f))
+                    .background(agentColor.copy(alpha = 0.8f))
             )
             Box(
                 modifier = Modifier
                     .offset(y = dot3Offset.dp)
                     .size(7.dp)
                     .clip(CircleShape)
-                    .background(CoralPrimary.copy(alpha = 0.6f))
+                    .background(agentColor.copy(alpha = 0.6f))
             )
         }
     }

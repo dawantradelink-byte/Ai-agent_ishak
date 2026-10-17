@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Open AI Agent</string>
+    <string name="tab_dashboard">ড্যাশবোর্ড</string>
+    <string name="tab_chat">চ্যাট</string>
+    <string name="tab_tasks">টাস্ক</string>
+    <string name="tab_settings">সেটিংস</string>
+    <string name="team_title">মোচি এআই টিম</string>
+    <string name="team_subtitle">৫টি বিশেষ স্বায়ত্তশাসিত এজেন্ট</string>
+    <string name="new_task">নতুন টাস্ক বরাদ্দ</string>
+    <string name="active_tasks">চলমান টাস্ক</string>
+    <string name="completed_tasks">সম্পন্ন টাস্ক</string>
+    <string name="copy_response">উত্তর কপি করুন</string>
+    <string name="retry_task">পুনরায় চেষ্টা করুন</string>
+    <string name="stop_task">থামুন</string>
+    <string name="reduce_motion">অ্যানিমেশন কমান</string>
+    <string name="clear_history">সমস্ত ডেটা মুছুন</string>
+</resources>

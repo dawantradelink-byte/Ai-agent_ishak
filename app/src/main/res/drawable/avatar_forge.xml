@@ -1,0 +1,104 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Forge 🛠️ Vector Avatar (Crisp High-DPI) -->
+    <!-- Circular Backdrop -->
+    <path
+        android:fillColor="#FFD8B0"
+        android:pathData="M50,2 A48,48 0 1,0 50,98 A48,48 0 1,0 50,2 Z" />
+    <path
+        android:strokeColor="#39434E"
+        android:strokeWidth="1.5"
+        android:pathData="M50,3 A47,47 0 1,0 50,97 A47,47 0 1,0 50,3 Z" />
+
+    <!-- Left Ear Cog Gear -->
+    <path
+        android:fillColor="#171F28"
+        android:pathData="M19,27 A9,9 0 1,0 19,45 A9,9 0 1,0 19,27 Z" />
+    <path
+        android:fillColor="#FFA126"
+        android:pathData="M19,32 A4,4 0 1,0 19,40 A4,4 0 1,0 19,32 Z" />
+
+    <!-- Right Ear Cog Gear -->
+    <path
+        android:fillColor="#171F28"
+        android:pathData="M81,27 A9,9 0 1,0 81,45 A9,9 0 1,0 81,27 Z" />
+    <path
+        android:fillColor="#FFA126"
+        android:pathData="M81,32 A4,4 0 1,0 81,40 A4,4 0 1,0 81,32 Z" />
+
+    <!-- Chassis Outer Shell (Dark Slate) -->
+    <path
+        android:fillColor="#303A45"
+        android:pathData="M25,25 L75,25 L84,37 L80,77 L69,87 L31,87 L20,77 L16,37 Z" />
+
+    <!-- Chassis Front Faceplate (Gunmetal Titanium) -->
+    <path
+        android:fillColor="#66717D"
+        android:pathData="M29,29 L71,29 L78,39 L74,73 L66,81 L34,81 L26,73 L22,39 Z" />
+
+    <!-- Corner Hex Screws -->
+    <path
+        android:fillColor="#D5DCE2"
+        android:pathData="M27,35.4 A2.6,2.6 0 1,0 27,40.6 A2.6,2.6 0 1,0 27,35.4 Z" />
+    <path
+        android:fillColor="#D5DCE2"
+        android:pathData="M73,35.4 A2.6,2.6 0 1,0 73,40.6 A2.6,2.6 0 1,0 73,35.4 Z" />
+    <path
+        android:fillColor="#D5DCE2"
+        android:pathData="M29,69.4 A2.6,2.6 0 1,0 29,74.6 A2.6,2.6 0 1,0 29,69.4 Z" />
+    <path
+        android:fillColor="#D5DCE2"
+        android:pathData="M71,69.4 A2.6,2.6 0 1,0 71,74.6 A2.6,2.6 0 1,0 71,69.4 Z" />
+
+    <!-- LED Screen Visor Box (Dark) -->
+    <path
+        android:fillColor="#171F28"
+        android:pathData="M27,44 L47,44 L47,61 L27,61 Z" />
+    <path
+        android:fillColor="#171F28"
+        android:pathData="M53,44 L73,44 L73,61 L53,61 Z" />
+
+    <!-- Glowing Amber Matrix Eyes (Pixel Dots) -->
+    <path
+        android:fillColor="#FFA126"
+        android:pathData="M32,47.3 A1.7,1.7 0 1,0 32,50.7 A1.7,1.7 0 1,0 32,47.3 Z" />
+    <path
+        android:fillColor="#FFA126"
+        android:pathData="M38,47.3 A1.7,1.7 0 1,0 38,50.7 A1.7,1.7 0 1,0 38,47.3 Z" />
+    <path
+        android:fillColor="#FFA126"
+        android:pathData="M32,53.3 A1.7,1.7 0 1,0 32,56.7 A1.7,1.7 0 1,0 32,53.3 Z" />
+    <path
+        android:fillColor="#FFA126"
+        android:pathData="M38,53.3 A1.7,1.7 0 1,0 38,56.7 A1.7,1.7 0 1,0 38,53.3 Z" />
+
+    <path
+        android:fillColor="#FFA126"
+        android:pathData="M58,47.3 A1.7,1.7 0 1,0 58,50.7 A1.7,1.7 0 1,0 58,47.3 Z" />
+    <path
+        android:fillColor="#FFA126"
+        android:pathData="M64,47.3 A1.7,1.7 0 1,0 64,50.7 A1.7,1.7 0 1,0 64,47.3 Z" />
+    <path
+        android:fillColor="#FFA126"
+        android:pathData="M58,53.3 A1.7,1.7 0 1,0 58,56.7 A1.7,1.7 0 1,0 58,53.3 Z" />
+    <path
+        android:fillColor="#FFA126"
+        android:pathData="M64,53.3 A1.7,1.7 0 1,0 64,56.7 A1.7,1.7 0 1,0 64,53.3 Z" />
+
+    <!-- Digital Equalizer Smile -->
+    <path
+        android:strokeColor="#FFA126"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M43,67 L57,67" />
+    <path
+        android:fillColor="#171F28"
+        android:pathData="M36,74 L64,74 L64,79 L36,79 Z" />
+    <path
+        android:strokeColor="#9DA7B1"
+        android:strokeWidth="1"
+        android:pathData="M40,76.5 L60,76.5" />
+</vector>

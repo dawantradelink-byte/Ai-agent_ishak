@@ -22,6 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "My AI"
+rootProject.name = "Open AI Agent"
 
 include(":app")

@@ -1,17 +1,17 @@
 <resources>
-    <string name="app_name">My AI</string>
-    <string name="new_chat">New Chat</string>
-    <string name="chat_history">Chat History</string>
-    <string name="no_history">No previous chats</string>
-    <string name="type_message_hint">Ask My AI in English or বাংলা…</string>
-    <string name="stop_generating">Stop</string>
-    <string name="retry">Retry</string>
-    <string name="copy">Copy</string>
-    <string name="copied">Copied to clipboard</string>
-    <string name="delete_chat">Delete Chat</string>
-    <string name="delete_all">Clear all history</string>
-    <string name="starter_prompt_1">বাংলায় একটি ছোট অনুপ্রেরণামূলক গল্প বলুন</string>
-    <string name="starter_prompt_2">Explain quantum computing in simple terms</string>
-    <string name="starter_prompt_3">Write a clean Python script to parse JSON data</string>
-    <string name="starter_prompt_4">আজকের দিনটি সফল ও সুন্দর করার ৫টি টিপস দিন</string>
+    <string name="app_name">Open AI Agent</string>
+    <string name="tab_dashboard">Dashboard</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_tasks">Tasks</string>
+    <string name="tab_settings">Settings</string>
+    <string name="team_title">Mochi AI Team</string>
+    <string name="team_subtitle">5 Specialized Autonomous Agents</string>
+    <string name="new_task">Assign Task</string>
+    <string name="active_tasks">Active Tasks</string>
+    <string name="completed_tasks">Completed Tasks</string>
+    <string name="copy_response">Copy Response</string>
+    <string name="retry_task">Retry Task</string>
+    <string name="stop_task">Stop</string>
+    <string name="reduce_motion">Reduce Motion</string>
+    <string name="clear_history">Clear All Data</string>
 </resources>

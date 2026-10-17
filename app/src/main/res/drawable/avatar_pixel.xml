@@ -1,0 +1,83 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Pixel 🎨 Vector Avatar (Crisp High-DPI) -->
+    <!-- Circular Backdrop -->
+    <path
+        android:fillColor="#FFD2F0"
+        android:pathData="M50,2 A48,48 0 1,0 50,98 A48,48 0 1,0 50,2 Z" />
+    <path
+        android:strokeColor="#9C397D"
+        android:strokeWidth="1.5"
+        android:pathData="M50,3 A47,47 0 1,0 50,97 A47,47 0 1,0 50,3 Z" />
+
+    <!-- Creative Collar/Bust -->
+    <path
+        android:fillColor="#8546B9"
+        android:pathData="M22,73 Q50,61 78,73 L87,91 L13,91 Z" />
+
+    <!-- Soft Peach Head -->
+    <path
+        android:fillColor="#FFB2D9"
+        android:pathData="M20,53.5 A30,31.5 0 1,0 80,53.5 A30,31.5 0 1,0 20,53.5 Z" />
+    <path
+        android:fillColor="#FFD7E9"
+        android:pathData="M26,54 A24,24 0 1,0 74,54 A24,24 0 1,0 26,54 Z" />
+
+    <!-- Magenta Asymmetric Hair Swoop -->
+    <path
+        android:fillColor="#FF3DAD"
+        android:pathData="M19,46 C9,22 27,9 47,18 C63,7 85,20 80,40 C70,31 59,34 48,28 C39,40 28,43 19,46 Z" />
+    <path
+        android:fillColor="#FF83D0"
+        android:pathData="M25,31 C36,16 52,17 61,23 C48,21 39,34 25,37 Z" />
+
+    <!-- Star-Shaped Eyes (White Sclera) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M36,41 A11,11 0 1,0 36,63 A11,11 0 1,0 36,41 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M64,41 A11,11 0 1,0 64,63 A11,11 0 1,0 64,41 Z" />
+
+    <!-- Kaleidoscope Star Pupils (Violet) -->
+    <path
+        android:fillColor="#5E2E8B"
+        android:pathData="M36,44 L38.3,49.2 L43.6,49.6 L39.6,53.3 L40.7,58.8 L36,55.9 L31.3,58.8 L32.4,53.3 L28.4,49.6 L33.7,49.2 Z" />
+    <path
+        android:fillColor="#5E2E8B"
+        android:pathData="M64,44 L66.3,49.2 L71.6,49.6 L67.6,53.3 L68.7,58.8 L64,55.9 L59.3,58.8 L60.4,53.3 L56.4,49.6 L61.7,49.2 Z" />
+
+    <!-- Eye Sparkles (Yellow) -->
+    <path
+        android:fillColor="#FFE66B"
+        android:pathData="M36,49.9 A2.1,2.1 0 1,0 36,54.1 A2.1,2.1 0 1,0 36,49.9 Z" />
+    <path
+        android:fillColor="#FFE66B"
+        android:pathData="M64,49.9 A2.1,2.1 0 1,0 64,54.1 A2.1,2.1 0 1,0 64,49.9 Z" />
+
+    <!-- Painter Palette Cheek Dabs -->
+    <path
+        android:fillColor="#00C9C8"
+        android:pathData="M24,61.6 A3.4,3.4 0 1,0 24,68.4 A3.4,3.4 0 1,0 24,61.6 Z" />
+    <path
+        android:fillColor="#FFD23F"
+        android:pathData="M31,64.6 A3.4,3.4 0 1,0 31,71.4 A3.4,3.4 0 1,0 31,64.6 Z" />
+    <path
+        android:fillColor="#FF5D8F"
+        android:pathData="M38,61.6 A3.4,3.4 0 1,0 38,68.4 A3.4,3.4 0 1,0 38,61.6 Z" />
+
+    <!-- Creative Smirk Smile -->
+    <path
+        android:strokeColor="#71365F"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round"
+        android:pathData="M49,69 Q58,76 68,67" />
+
+    <!-- Floating Sparkle Star -->
+    <path
+        android:fillColor="#FFE66B"
+        android:pathData="M76,22 L77.5,25.5 L81,27 L77.5,28.5 L76,32 L74.5,28.5 L71,27 L74.5,25.5 Z" />
+</vector>

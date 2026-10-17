@@ -5,50 +5,50 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GeminiRequest(
-    @Json(name = "contents") val contents: List<ContentDto>,
-    @Json(name = "systemInstruction") val systemInstruction: ContentDto? = null,
-    @Json(name = "generationConfig") val generationConfig: GenerationConfigDto? = null
+    @field:Json(name = "contents") val contents: List<ContentDto>,
+    @field:Json(name = "systemInstruction") val systemInstruction: ContentDto? = null,
+    @field:Json(name = "generationConfig") val generationConfig: GenerationConfigDto? = null
 )
 
 @JsonClass(generateAdapter = true)
 data class ContentDto(
-    @Json(name = "role") val role: String? = null,
-    @Json(name = "parts") val parts: List<PartDto>
+    @field:Json(name = "role") val role: String? = null,
+    @field:Json(name = "parts") val parts: List<PartDto>
 )
 
 @JsonClass(generateAdapter = true)
 data class PartDto(
-    @Json(name = "text") val text: String
+    @field:Json(name = "text") val text: String
 )
 
 @JsonClass(generateAdapter = true)
 data class GenerationConfigDto(
-    @Json(name = "temperature") val temperature: Float? = 0.7f,
-    @Json(name = "topP") val topP: Float? = 0.95f,
-    @Json(name = "maxOutputTokens") val maxOutputTokens: Int? = 4096
+    @field:Json(name = "temperature") val temperature: Float? = 0.7f,
+    @field:Json(name = "topP") val topP: Float? = 0.95f,
+    @field:Json(name = "maxOutputTokens") val maxOutputTokens: Int? = 4096
 )
 
 @JsonClass(generateAdapter = true)
 data class GeminiResponse(
-    @Json(name = "candidates") val candidates: List<CandidateDto>? = null,
-    @Json(name = "promptFeedback") val promptFeedback: PromptFeedbackDto? = null,
-    @Json(name = "error") val error: GeminiErrorDto? = null
+    @field:Json(name = "candidates") val candidates: List<CandidateDto>? = null,
+    @field:Json(name = "promptFeedback") val promptFeedback: PromptFeedbackDto? = null,
+    @field:Json(name = "error") val error: GeminiErrorDto? = null
 )
 
 @JsonClass(generateAdapter = true)
 data class CandidateDto(
-    @Json(name = "content") val content: ContentDto? = null,
-    @Json(name = "finishReason") val finishReason: String? = null
+    @field:Json(name = "content") val content: ContentDto? = null,
+    @field:Json(name = "finishReason") val finishReason: String? = null
 )
 
 @JsonClass(generateAdapter = true)
 data class PromptFeedbackDto(
-    @Json(name = "blockReason") val blockReason: String? = null
+    @field:Json(name = "blockReason") val blockReason: String? = null
 )
 
 @JsonClass(generateAdapter = true)
 data class GeminiErrorDto(
-    @Json(name = "code") val code: Int? = null,
-    @Json(name = "message") val message: String? = null,
-    @Json(name = "status") val status: String? = null
+    @field:Json(name = "code") val code: Int? = null,
+    @field:Json(name = "message") val message: String? = null,
+    @field:Json(name = "status") val status: String? = null
 )

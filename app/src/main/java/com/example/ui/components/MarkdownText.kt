@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,15 +44,13 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ui.theme.CoralPrimary
-import com.example.ui.theme.OnDarkSoft
-import com.example.ui.theme.OnDarkText
-import com.example.ui.theme.SurfaceCreamStrong
-import com.example.ui.theme.SurfaceDark
-import com.example.ui.theme.SurfaceDarkElevated
-import com.example.ui.theme.SurfaceDarkSoft
-import com.example.ui.theme.TextBody
-import com.example.ui.theme.TextInk
+import com.example.ui.theme.BabyBlueAccent
+import com.example.ui.theme.DeepNavyBorder
+import com.example.ui.theme.DeepNavyElevated
+import com.example.ui.theme.DeepNavySurface
+import com.example.ui.theme.LemonLimeAccent
+import com.example.ui.theme.TextLightMuted
+import com.example.ui.theme.TextWhite
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -67,8 +66,9 @@ sealed class MarkdownBlock {
 fun MarkdownContent(
     content: String,
     modifier: Modifier = Modifier,
-    textColor: Color = TextBody
+    textColor: Color = Color.Unspecified
 ) {
+    val resolvedTextColor = if (textColor != Color.Unspecified) textColor else MaterialTheme.colorScheme.onSurface
     val blocks = remember(content) { parseMarkdown(content) }
 
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -81,17 +81,18 @@ fun MarkdownContent(
                         else -> MaterialTheme.typography.titleMedium
                     }
                     Text(
-                        text = formatInlineMarkdown(block.text, style.color),
+                        text = formatInlineMarkdown(block.text, resolvedTextColor),
                         style = style,
+                        color = resolvedTextColor,
                         modifier = Modifier.padding(top = 4.dp, bottom = 2.dp)
                     )
                 }
 
                 is MarkdownBlock.Paragraph -> {
                     Text(
-                        text = formatInlineMarkdown(block.text, textColor),
+                        text = formatInlineMarkdown(block.text, resolvedTextColor),
                         style = MaterialTheme.typography.bodyLarge,
-                        color = textColor
+                        color = resolvedTextColor
                     )
                 }
 
@@ -103,7 +104,7 @@ fun MarkdownContent(
                         Text(
                             text = "•",
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                            color = CoralPrimary,
+                            color = BabyBlueAccent,
                             modifier = Modifier.padding(end = 8.dp)
                         )
                         Text(
@@ -119,14 +120,14 @@ fun MarkdownContent(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(6.dp))
-                            .background(SurfaceCreamStrong.copy(alpha = 0.5f))
+                            .background(DeepNavySurface)
                             .padding(horizontal = 12.dp, vertical = 8.dp)
                     ) {
                         Box(
                             modifier = Modifier
                                 .width(3.dp)
                                 .height(22.dp)
-                                .background(CoralPrimary, RoundedCornerShape(2.dp))
+                                .background(LemonLimeAccent, RoundedCornerShape(2.dp))
                         )
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
@@ -155,13 +156,14 @@ fun CodeWindowCard(language: String, code: String) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
-            .background(SurfaceDark)
+            .background(DeepNavySurface)
+            .border(1.dp, DeepNavyBorder, RoundedCornerShape(10.dp))
     ) {
         // Header
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(SurfaceDarkElevated)
+                .background(DeepNavyElevated)
                 .padding(horizontal = 12.dp, vertical = 6.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -173,11 +175,10 @@ fun CodeWindowCard(language: String, code: String) {
                     fontFamily = FontFamily.Monospace,
                     letterSpacing = 1.sp
                 ),
-                color = OnDarkSoft
+                color = BabyBlueAccent
             )
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(
                     onClick = {
@@ -194,14 +195,14 @@ fun CodeWindowCard(language: String, code: String) {
                     Icon(
                         imageVector = if (copied) Icons.Default.Check else Icons.Default.ContentCopy,
                         contentDescription = "Copy code",
-                        tint = if (copied) CoralPrimary else OnDarkSoft,
+                        tint = if (copied) LemonLimeAccent else TextLightMuted,
                         modifier = Modifier.size(16.dp)
                     )
                 }
                 Text(
                     text = if (copied) "Copied!" else "Copy",
                     style = MaterialTheme.typography.labelMedium,
-                    color = if (copied) CoralPrimary else OnDarkSoft
+                    color = if (copied) LemonLimeAccent else TextLightMuted
                 )
             }
         }
@@ -210,7 +211,7 @@ fun CodeWindowCard(language: String, code: String) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(SurfaceDarkSoft)
+                .background(DeepNavySurface)
                 .horizontalScroll(rememberScrollState())
                 .padding(14.dp)
         ) {
@@ -219,7 +220,7 @@ fun CodeWindowCard(language: String, code: String) {
                 fontFamily = FontFamily.Monospace,
                 fontSize = 13.sp,
                 lineHeight = 20.sp,
-                color = OnDarkText
+                color = TextWhite
             )
         }
     }
@@ -233,7 +234,6 @@ private fun parseMarkdown(raw: String): List<MarkdownBlock> {
     while (i < lines.size) {
         val line = lines[i]
 
-        // Check code block ```
         if (line.trimStart().startsWith("```")) {
             val lang = line.trimStart().removePrefix("```").trim()
             val codeBuilder = StringBuilder()
@@ -253,7 +253,6 @@ private fun parseMarkdown(raw: String): List<MarkdownBlock> {
             continue
         }
 
-        // Heading
         if (trimmed.startsWith("#")) {
             val level = trimmed.takeWhile { it == '#' }.length
             val headingText = trimmed.drop(level).trim()
@@ -262,7 +261,6 @@ private fun parseMarkdown(raw: String): List<MarkdownBlock> {
             continue
         }
 
-        // Blockquote
         if (trimmed.startsWith(">")) {
             val quoteText = trimmed.removePrefix(">").trim()
             blocks.add(MarkdownBlock.Blockquote(quoteText))
@@ -270,7 +268,6 @@ private fun parseMarkdown(raw: String): List<MarkdownBlock> {
             continue
         }
 
-        // Bullet item
         if (trimmed.startsWith("* ") || trimmed.startsWith("- ") || trimmed.startsWith("• ")) {
             val bulletText = trimmed.substring(2).trim()
             blocks.add(MarkdownBlock.BulletItem(bulletText))
@@ -278,7 +275,6 @@ private fun parseMarkdown(raw: String): List<MarkdownBlock> {
             continue
         }
 
-        // Default Paragraph
         val paragraphBuilder = StringBuilder(trimmed)
         i++
         while (i < lines.size) {
@@ -303,12 +299,11 @@ private fun formatInlineMarkdown(text: String, defaultColor: Color): AnnotatedSt
         val length = text.length
 
         while (cursor < length) {
-            // Bold **text**
             if (cursor + 1 < length && text[cursor] == '*' && text[cursor + 1] == '*') {
                 val end = text.indexOf("**", cursor + 2)
                 if (end != -1) {
                     val inner = text.substring(cursor + 2, end)
-                    pushStyle(SpanStyle(fontWeight = FontWeight.Bold, color = TextInk))
+                    pushStyle(SpanStyle(fontWeight = FontWeight.Bold, color = TextWhite))
                     append(inner)
                     pop()
                     cursor = end + 2
@@ -316,7 +311,6 @@ private fun formatInlineMarkdown(text: String, defaultColor: Color): AnnotatedSt
                 }
             }
 
-            // Inline code `code`
             if (text[cursor] == '`') {
                 val end = text.indexOf('`', cursor + 1)
                 if (end != -1) {
@@ -325,8 +319,8 @@ private fun formatInlineMarkdown(text: String, defaultColor: Color): AnnotatedSt
                         SpanStyle(
                             fontFamily = FontFamily.Monospace,
                             fontWeight = FontWeight.Medium,
-                            background = SurfaceCreamStrong,
-                            color = CoralPrimary
+                            background = DeepNavyElevated,
+                            color = BabyBlueAccent
                         )
                     )
                     append(" $inner ")
@@ -336,7 +330,6 @@ private fun formatInlineMarkdown(text: String, defaultColor: Color): AnnotatedSt
                 }
             }
 
-            // Italic *text*
             if (text[cursor] == '*') {
                 val end = text.indexOf('*', cursor + 1)
                 if (end != -1) {

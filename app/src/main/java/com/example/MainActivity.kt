@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.ui.screens.ChatScreen
+import com.example.ui.screens.MainScreen
 import com.example.ui.theme.MyApplicationTheme
 import com.example.ui.viewmodel.ChatViewModel
 
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 val chatViewModel: ChatViewModel = viewModel()
-                ChatScreen(
+                MainScreen(
                     viewModel = chatViewModel,
                     modifier = Modifier.fillMaxSize()
                 )

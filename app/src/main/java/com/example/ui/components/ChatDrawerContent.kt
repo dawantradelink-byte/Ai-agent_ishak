@@ -20,13 +20,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.ChatBubbleOutline
 import androidx.compose.material.icons.filled.DeleteOutline
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -44,15 +42,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.local.ChatSessionEntity
-import com.example.ui.theme.CanvasCream
-import com.example.ui.theme.CoralPrimary
-import com.example.ui.theme.HairlineBorder
-import com.example.ui.theme.SurfaceCard
-import com.example.ui.theme.SurfaceCreamStrong
-import com.example.ui.theme.SurfaceSoft
-import com.example.ui.theme.TextBody
-import com.example.ui.theme.TextInk
-import com.example.ui.theme.TextMuted
+import com.example.data.model.AgentTeam
+import com.example.ui.theme.BabyBlueAccent
+import com.example.ui.theme.DeepNavyBorder
+import com.example.ui.theme.DeepNavyElevated
+import com.example.ui.theme.DeepNavySurface
+import com.example.ui.theme.MochiPurple
+import com.example.ui.theme.TextLightMuted
+import com.example.ui.theme.TextWhite
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -71,7 +68,7 @@ fun ChatDrawerContent(
         modifier = modifier
             .fillMaxHeight()
             .width(300.dp)
-            .background(CanvasCream)
+            .background(MaterialTheme.colorScheme.surface)
             .padding(16.dp)
     ) {
         // App Header in Drawer
@@ -83,29 +80,31 @@ fun ChatDrawerContent(
         ) {
             Box(
                 modifier = Modifier
-                    .size(32.dp)
+                    .size(34.dp)
                     .clip(CircleShape)
-                    .background(CoralPrimary),
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.15f))
+                    .border(1.dp, MaterialTheme.colorScheme.primary, CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Default.AutoAwesome,
+                    imageVector = Icons.Default.Shield,
                     contentDescription = null,
-                    tint = Color.White,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(18.dp)
                 )
             }
             Spacer(modifier = Modifier.width(10.dp))
             Column {
                 Text(
-                    text = "My AI",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = TextInk
+                    text = "Open AI Agent",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Bengali & English Assistant",
+                    text = "Mochi AI Team System",
                     style = MaterialTheme.typography.bodySmall,
-                    color = TextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp
                 )
             }
@@ -121,8 +120,8 @@ fun ChatDrawerContent(
                 .height(44.dp)
                 .testTag("drawer_new_chat_button"),
             colors = ButtonDefaults.buttonColors(
-                containerColor = CoralPrimary,
-                contentColor = Color.White
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             ),
             shape = RoundedCornerShape(8.dp)
         ) {
@@ -133,26 +132,26 @@ fun ChatDrawerContent(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "New Chat (নতুন আলাপ)",
+                text = "New Chat Session",
                 style = MaterialTheme.typography.labelLarge,
-                color = Color.White
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "CONVERSATIONS",
+            text = "CONVERSATION HISTORY",
             style = MaterialTheme.typography.labelMedium.copy(
                 letterSpacing = 1.2.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Bold
             ),
-            color = TextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
         )
 
         HorizontalDivider(
-            color = HairlineBorder,
+            color = MaterialTheme.colorScheme.outline,
             thickness = 1.dp,
             modifier = Modifier.padding(vertical = 4.dp)
         )
@@ -169,15 +168,14 @@ fun ChatDrawerContent(
                     Icon(
                         imageVector = Icons.Default.ChatBubbleOutline,
                         contentDescription = null,
-                        tint = TextMuted.copy(alpha = 0.5f),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
                         modifier = Modifier.size(36.dp)
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "কোনো পূর্ববর্তী আলাপ নেই\n(No past chats)",
+                        text = "No previous conversations",
                         style = MaterialTheme.typography.bodySmall,
-                        color = TextMuted,
-                        lineHeight = 18.sp
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -190,6 +188,7 @@ fun ChatDrawerContent(
             ) {
                 items(sessions, key = { it.id }) { session ->
                     val isSelected = session.id == activeSessionId
+                    val agent = AgentTeam.getById(session.activeAgentId)
                     val dateFormatted = SimpleDateFormat("MMM d, h:mm a", Locale.getDefault())
                         .format(Date(session.updatedAt))
 
@@ -197,16 +196,20 @@ fun ChatDrawerContent(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(8.dp))
-                            .background(if (isSelected) SurfaceCreamStrong else Color.Transparent)
+                            .background(if (isSelected) MaterialTheme.colorScheme.surfaceVariant else Color.Transparent)
+                            .border(
+                                1.dp,
+                                if (isSelected) agent.color.copy(alpha = 0.5f) else Color.Transparent,
+                                RoundedCornerShape(8.dp)
+                            )
                             .clickable { onSelectSession(session.id) }
                             .padding(horizontal = 10.dp, vertical = 10.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.ChatBubbleOutline,
-                            contentDescription = null,
-                            tint = if (isSelected) CoralPrimary else TextMuted,
-                            modifier = Modifier.size(16.dp)
+                        AgentAvatar(
+                            agentId = agent.id,
+                            size = 26.dp,
+                            showPulse = false
                         )
                         Spacer(modifier = Modifier.width(10.dp))
                         Column(modifier = Modifier.weight(1f)) {
@@ -215,14 +218,14 @@ fun ChatDrawerContent(
                                 style = MaterialTheme.typography.bodyMedium.copy(
                                     fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
                                 ),
-                                color = if (isSelected) TextInk else TextBody,
+                                color = if (isSelected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
                             Text(
-                                text = dateFormatted,
+                                text = "${agent.name} • $dateFormatted",
                                 style = MaterialTheme.typography.bodySmall,
-                                color = TextMuted,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 10.sp
                             )
                         }
@@ -233,7 +236,7 @@ fun ChatDrawerContent(
                             Icon(
                                 imageVector = Icons.Default.DeleteOutline,
                                 contentDescription = "Delete conversation",
-                                tint = TextMuted.copy(alpha = 0.7f),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                                 modifier = Modifier.size(15.dp)
                             )
                         }
@@ -243,7 +246,7 @@ fun ChatDrawerContent(
         }
 
         HorizontalDivider(
-            color = HairlineBorder,
+            color = MaterialTheme.colorScheme.outline,
             thickness = 1.dp,
             modifier = Modifier.padding(vertical = 8.dp)
         )
@@ -257,24 +260,24 @@ fun ChatDrawerContent(
                 Icon(
                     imageVector = Icons.Default.DeleteOutline,
                     contentDescription = null,
-                    tint = TextMuted,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
                     text = "Clear all conversations",
                     style = MaterialTheme.typography.bodySmall,
-                    color = TextMuted
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
 
-        // Status pill
+        // Engine indicator pill
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(6.dp))
-                .background(SurfaceSoft)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
                 .padding(horizontal = 10.dp, vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -282,13 +285,13 @@ fun ChatDrawerContent(
                 modifier = Modifier
                     .size(8.dp)
                     .clip(CircleShape)
-                    .background(CoralPrimary)
+                    .background(MaterialTheme.colorScheme.primary)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Powered by Google Gemini",
+                text = "Powered by Google Gemini 3.5 Flash",
                 style = MaterialTheme.typography.bodySmall,
-                color = TextBody,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 11.sp
             )
         }

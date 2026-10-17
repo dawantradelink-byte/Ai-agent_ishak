@@ -5,6 +5,7 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+    <!-- Deep Navy base background -->
     <path android:pathData="M0,0h108v108h-108z">
         <aapt:attr name="android:fillColor">
             <gradient
@@ -13,13 +14,16 @@
                 android:endX="108"
                 android:endY="108"
                 android:type="linear">
-                <item android:offset="0.0" android:color="#CC785C" />
-                <item android:offset="1.0" android:color="#9A4830" />
+                <item android:offset="0.0" android:color="#0D1117" />
+                <item android:offset="1.0" android:color="#1A202C" />
             </gradient>
         </aapt:attr>
     </path>
-    <!-- Soft warm background ring -->
+    <!-- Soft purple radiant circle for Mochi & team -->
     <path
-        android:fillColor="#15FFFFFF"
-        android:pathData="M54,18 A36,36 0 1,0 54,90 A36,36 0 1,0 54,18 Z" />
+        android:fillColor="#15A78BFA"
+        android:pathData="M54,20 A34,34 0 1,0 54,88 A34,34 0 1,0 54,20 Z" />
+    <path
+        android:fillColor="#1038BDF8"
+        android:pathData="M54,28 A26,26 0 1,0 54,80 A26,26 0 1,0 54,28 Z" />
 </vector>

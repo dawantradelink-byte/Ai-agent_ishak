@@ -6,8 +6,22 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [ChatSessionEntity::class, ChatMessageEntity::class],
-    version = 1,
+    entities = [
+        ChatSessionEntity::class,
+        ChatMessageEntity::class,
+        TaskEntity::class,
+        AgentMemoryEntity::class,
+        AgentInstructionEntity::class,
+        EvaluationRecordEntity::class,
+        SkillEntity::class,
+        ScheduledRoutineEntity::class,
+        DurableTaskExecutionEntity::class,
+        TaskStepEntity::class,
+        CloudFileEntity::class,
+        ApprovalRequestEntity::class,
+        TaskLogEntity::class
+    ],
+    version = 6,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -22,8 +36,10 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "my_ai_chat.db"
-                ).build()
+                    "open_ai_agent.db"
+                )
+                    .fallbackToDestructiveMigration(dropAllTables = true)
+                    .build()
                 INSTANCE = instance
                 instance
             }
